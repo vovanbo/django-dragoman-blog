@@ -1,4 +1,4 @@
-from dragoman_blog.models import EntryTranslation
+from dragoman_blog.models import EntryTranslation, UniTag
 from django.views.generic.list import ListView
 from django.utils.translation import get_language
 
@@ -13,12 +13,13 @@ class ListByTagView(ListView):
         tag = self.kwargs.get('tag', '')
         if (tag != ''):
             object_list = self.model.objects.filter(
-                tags__name=tag, language_code=get_language(), is_published=True)
+                tags__slug=tag, language_code=get_language(), is_published=True)
         else:
             object_list = self.model.objects.none()
         return object_list
 
     def get_context_data(self, **kwargs):
         context = super(ListByTagView, self).get_context_data(**kwargs)
-        context['tag'] = self.kwargs.get('tag', '')
+        tag = UniTag.objects.get(slug=self.kwargs.get('tag', ''))
+        context['tag'] = tag
         return context
