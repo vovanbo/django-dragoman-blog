@@ -1,8 +1,5 @@
 from django.conf.urls import url, patterns
-
-# from hvad_blog.feeds import EntriesFeed, TaggedEntriesFeed, AuthorEntriesFeed
-from dragoman_blog.models import Entry, EntryTranslation
-
+from dragoman_blog.models import EntryTranslation
 from django.utils.translation import get_language
 from django.views.generic.dates import DateDetailView, ArchiveIndexView, YearArchiveView, MonthArchiveView, DayArchiveView
 from dragoman_blog.views import ListByTagView
